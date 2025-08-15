@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEVEX KLUB Widget</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        header {
+            background: linear-gradient(90deg, #009846, #8add8c);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        section {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section h2 {
+            color: #009846;
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        section p {
+            margin-bottom: 20px;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .benefit-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .benefit-box h3 {
+            color: #3BAF3D;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .benefit-box p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        ul {
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            background: #e8f7ec;
+            padding: 20px;
+            border-left: 5px solid #8add8c;
+            margin-top: 30px;
+            border-radius: 6px;
+        }
+
+
+
+        /* Sticky button */
+        #loyaltyStickyBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #009a44;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #loyaltyStickyBtn:hover {
+            background-color: #004d00;
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: url('euro-sign.png') no-repeat center;
+            background-size: contain;
+            animation: rotate 2s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Slide-in panel */
+        #loyaltyPanel {
+            position: fixed;
+            right: -400px;
+            top: 50%;
+            transform: translateY(-50%) scale(0.95);
+            opacity: 0;
+            width: 350px;
+            background: white;
+            box-shadow: -2px 0 8px rgb(0 160 74);
+            padding: 20px;
+            transition: right 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+            z-index: 9998;
+            border-radius: 8px;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        #loyaltyPanel.open {
+            right: 20px;
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+        }
+
+        /* Close button */
+        #loyaltyPanelClose {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #006400;
+        }
+
+        /* Panel content */
+        #loyaltyPanel h2 {
+            color: #006400;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        /* Savings estimator */
+        .estimator {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid #006400;
+        }
+
+        .estimator label {
+            font-size: 15px;
+            color: #333;
+            margin: 0;
+            font-weight: 600;
+            flex: 1;
+            white-space: nowrap;
+        }
+
+        .estimator input {
+            width: 120px;
+            box-sizing: border-box;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            flex: 0 0 120px;
+            transition: border-color 0.3s ease;
+        }
+
+        .estimator input:focus {
+            border-color: #228B22;
+            outline: none;
+            box-shadow: 0 0 5px rgba(34,139,34,0.3);
+        }
+
+        .estimator small {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .result {
+            font-size: 16px;
+            font-weight: 700;
+            color: #228B22;
+            margin-top: 10px;
+            text-align: center;
+            background: #f0fff0;
+            padding: 10px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        /* Benefits list */
+        ul {
+            font-size: 0.95rem;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        /* FAQ styles */
+        .faq {
+            margin: 15px 0;
+        }
+
+        .faq h3 {
+            color: #006400;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .faq-question {
+            background: #f0fff0;
+            border: none;
+            width: 100%;
+            text-align: left;
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .faq-answer {
+            padding: 0 10px;
+            font-size: 13px;
+            color: #555;
+            display: none;
+        }
+
+        /* CTA button */
+        .cta-btn {
+            display: block;
+            padding: 14px;
+            background-color: #228B22;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .cta-btn:hover {
+            background-color: #1a751a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .cta-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        /* Fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .estimator, .faq, .result, .cta-btn {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        /* Mobile version */
+        @media (max-width: 768px) {
+            #loyaltyPanel.open {
+                right: 0;
+                width: 90vw;
+            }
+            .estimator {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 10px;
+            }
+            .estimator label {
+                margin-bottom: 8px;
+            }
+            .estimator input {
+                width: 100%;
+                flex: 0 0 100%;
+            }
+            .result {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <header>
+        <h1>Zašto je naš Loyalty Widget prava prilika za Pevex?</h1>
+        <p>Predstavljamo vam inovativno rešenje koje povećava angažovanost posetilaca sajta, 
+        podstiče učlanjivanje u Loyalty program i gradi dugoročne odnose sa kupcima – sve kroz 
+        jednostavno i vizuelno privlačno iskustvo.</p>
+    </header>
+
+    <section>
+        <h2>Prednosti za korisnike</h2>
+        <div class="benefits">
+            <div class="benefit-box">
+                <h3>📌 Jednostavan pristup</h3>
+                <p>Korisnici mogu u samo jednom kliku da otvore panel sa svim informacijama o Loyalty programu, bez pretraživanja sajta.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>🎯 Fokus na pogodnosti</h3>
+                <p>Panel ističe najvažnije benefite članstva – popuste, specijalne ponude i ekskluzivne pogodnosti, motivišući korisnika da se odmah učlani.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>📱 Potpuno prilagođen mobilnim uređajima</h3>
+                <p>Optimizovan prikaz obezbeđuje besprekorno iskustvo na telefonu, tabletu i računaru, što povećava šanse za interakciju.</p>
+            </div>
+        </div>
+
+        <h2>Prednosti za Pevex</h2>
+        <div class="benefits">
+            <div class="benefit-box">
+                <h3>🚀 Veća stopa učlanjivanja</h3>
+                <p>Jasan poziv na akciju i strateško pozicioniranje dugmeta podstiču veći broj prijava u Loyalty program.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>💡 Brza implementacija</h3>
+                <p>Widget se lako integriše na postojeći sajt bez potrebe za velikim tehničkim promenama.</p>
+            </div>
+            <div class="benefit-box">
+                <h3>📊 Mogućnost merenja</h3>
+                <p>Prikupljanje podataka o broju otvaranja panela i klikova na CTA dugme pruža jasne uvide u uspešnost kampanje.</p>
+            </div>
+        </div>
+
+        <div class="highlight">
+            <h2>Zaključak</h2>
+            <p>Ovaj Loyalty Widget kombinuje moderan dizajn, jasnoću poruke i jednostavnost korišćenja, 
+            pružajući korisnicima razlog da odmah reaguju. Za Pevex, to znači veću angažovanost, 
+            više učlanjenih članova i jaču lojalnost kupaca.</p>
+        </div>
+    </section>
+
+    <footer style="background-color:#006298; color:white; padding:30px 20px; text-align:center; margin-top:40px;">
+    <h2 style="margin-bottom:10px;">💬 Želite ovakav widget na svom sajtu?</h2>
+    <p style="max-width:600px; margin:0 auto 20px;">
+        Kontaktirajte me preko LinkedIna ili email-a i dogovorićemo prilagođenu verziju ovog widgeta za vaš brend.
+    </p>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+        <a href="https://www.linkedin.com/in/petar-skrbic/" 
+           target="_blank" 
+           style="display:inline-block; background:#ffffff; color:#009846; padding:12px 24px; border-radius:6px; font-weight:bold; text-decoration:none; transition:0.3s;">
+           📎 Povežite se sa mnom na LinkedInu
+        </a>
+        <a href="mailto:notoolsnocraft@gmail.com"
+           style="display:inline-block; background:#ffffff; color:#006298; padding:12px 24px; border-radius:6px; font-weight:bold; text-decoration:none; transition:0.3s;">
+           ✉️ Pošaljite mi email
+        </a>
+    </div>
+    <p style="margin-top:30px; font-size:14px; opacity:0.9;">&copy; 2025 Petar Škrbić. Sva prava zadržana.</p>
+</footer>
+
+
+
+
+
+
+
+
+    <!-- Sticky button with rotating logo -->
+    <button id="loyaltyStickyBtn" aria-label="Otvori PEVEX KLUB panel">
+        <span class="logo-icon"></span> Koliko možeš uštedeti?
+    </button>
+
+    <!-- Slide-in panel -->
+    <div id="loyaltyPanel" role="dialog" aria-labelledby="loyaltyPanelTitle">
+        <button id="loyaltyPanelClose" aria-label="Zatvori panel">&times;</button>
+        <div style="text-align: center;">
+            <h2 id="loyaltyPanelTitle">PEVEX KLUB Vjernosti</h2>
+            <img src="pevex-logo.png" alt="PEVEX KLUB Logo" style="max-width: 100%; height: 20vh;">
+        </div>
+
+        <!-- Savings Estimator -->
+        <div class="estimator">
+            <label for="monthlySpending">Koliko mesečno trošite <br>u Pevexu? (EUR)</label>
+            <input type="number" id="monthlySpending" min="0" value="200" aria-describedby="spendingHelp" onchange="estimateSavings()">
+            
+        </div>
+
+        <div class="result" id="savingsResult">Procjena uštede: 20 EUR</div>
+
+        <!-- Benefits List -->
+        <p>Pridruži se PEVEX KLUB-u i uživaj u ekskluzivnim pogodnostima!</p>
+        <ul>
+            <li><strong>Trenutni popusti</strong> na odabrane artikle (označeni kao 'zelena cijena')</li>
+            <li><strong>Utorak dan za mene</strong> – posebni popusti svaki utorak</li>
+            <li><strong>Super ponuda</strong> – najbolje cijene prehrambenih proizvoda</li>
+            <li><strong>Besplatan najam prikolice</strong> za kupnje preko 250 EUR (u odabranim centrima)</li>
+            <li><strong>Besplatna dostava</strong> uz određene uvjete</li>
+            <li><strong>36 rata bez kamate</strong> za kartično plaćanje</li>
+            <li><strong>Produljeno jamstvo do 5 godina</strong> za registrirane uređaje</li>
+            <li><strong>Popusti u SAMOFINO kafićima</strong></li>
+        </ul>
+
+        <!-- FAQ Section -->
+        <div class="faq">
+            <h3>Najčešća pitanja</h3>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Kako se učlaniti u PEVEX KLUB?</button>
+                <div class="faq-answer">
+                    <p>Možete se učlaniti putem info pulta u prodajnim centrima ili na www.pevex.hr uz popunu pristupnice.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Skupljaju li se bodovi?</button>
+                <div class="faq-answer">
+                    <p>Ne, PEVEX KLUB karticom se ne skupljaju bodovi, već se ostvaruju direktni popusti.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Koliko kartica mogu imati?</button>
+                <div class="faq-answer">
+                    <p>Svaki korisnik može imati samo jednu PEVEX KLUB karticu.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <div style="text-align: center;">
+            <a href="https://www.pevex.hr" target="_blank" class="cta-btn">
+                Pridruži se PEVEX KLUB-u – besplatno!
+            </a>
+        </div>
+        
+    </div>
+
+    <script>
+        // Toggle panel
+        const btn = document.getElementById('loyaltyStickyBtn');
+        const panel = document.getElementById('loyaltyPanel');
+        const closeBtn = document.getElementById('loyaltyPanelClose');
+
+        btn.addEventListener('click', () => {
+            panel.classList.toggle('open');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            panel.classList.remove('open');
+        });
+
+        // Close panel on outside click
+        window.addEventListener('click', (event) => {
+            if (!panel.contains(event.target) && !btn.contains(event.target) && panel.classList.contains('open')) {
+                panel.classList.remove('open');
+            }
+        });
+
+        // Close panel with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && panel.classList.contains('open')) {
+                panel.classList.remove('open');
+            }
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const answer = button.nextElementSibling;
+                const isOpen = answer.style.display === 'block';
+                answer.style.display = isOpen ? 'none' : 'block';
+                button.setAttribute('aria-expanded', !isOpen);
+            });
+        });
+
+        // Savings estimator
+        function estimateSavings() {
+            const monthlySpending = parseInt(document.getElementById('monthlySpending').value) || 0;
+            const savingsResult = document.getElementById('savingsResult');
+
+            // Ensure valid inputs
+            if (monthlySpending < 0) {
+                savingsResult.innerText = 'Molimo unesite validan iznos.';
+                return;
+            }
+
+            // Estimate savings: Assume 10% average discount from 'zelena cijena' and 'utorak dan'
+            const estimatedSavings = Math.round(monthlySpending * 0.10);
+            savingsResult.innerText = estimatedSavings > 0 
+                ? `Procjena uštede: ${estimatedSavings} EUR`
+                : 'Unesite veći iznos za procjenu uštede!';
+        }
+
+        // Initial calculation
+        estimateSavings();
+    </script>
+</body>
+</html>
