@@ -72,10 +72,6 @@
             color: #555;
         }
 
-        ul {
-            font-size: 0.95rem;
-        }
-
         .highlight {
             background: #e8f7ec;
             padding: 20px;
@@ -83,8 +79,6 @@
             margin-top: 30px;
             border-radius: 6px;
         }
-
-
 
         /* Sticky button */
         #loyaltyStickyBtn {
@@ -228,15 +222,155 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        /* Benefits list */
-        ul {
-            font-size: 0.95rem;
-            padding-left: 20px;
-            margin-bottom: 20px;
+        /* App promotion section */
+        .app-promo {
+            background: #e8f7ec;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
         }
 
-        ul li {
+        .app-promo h3 {
+            color: #006400;
+            font-size: 1.2rem;
             margin-bottom: 10px;
+        }
+
+        .app-promo p {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .app-promo .button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .app-promo .cta-btn {
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #009846, #3BAF3D);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            flex: 1;
+        }
+
+        .app-promo .cta-btn.web-btn {
+            background: linear-gradient(90deg, #006298, #3b8ac4);
+        }
+
+        .app-promo .cta-btn:hover {
+            background: linear-gradient(90deg, #004d00, #228B22);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .app-promo .cta-btn.web-btn:hover {
+            background: linear-gradient(90deg, #003966, #1a6a9e);
+        }
+
+        .app-promo .cta-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        /* Benefits slider */
+        .benefits-slider {
+            position: relative;
+            width: 100%;
+            height: 80px;
+            overflow: hidden;
+            margin: 20px 0;
+            background: #f0fff0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .benefits-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .benefits-slide.active {
+            opacity: 1;
+        }
+
+        .benefits-slide p {
+            font-size: 0.95rem;
+            color: #006400;
+            text-align: center;
+            padding: 0 40px; /* Adjusted for arrow space */
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #009846;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background 0.3s, transform 0.2s;
+            z-index: 1;
+        }
+
+        .slider-arrow.left {
+            left: 10px;
+        }
+
+        .slider-arrow.right {
+            right: 10px;
+        }
+
+        .slider-arrow:hover {
+            background: #004d00;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-arrow:active {
+            transform: translateY(-50%) scale(1);
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            background: #ccc;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .slider-dot.active {
+            background: #009846;
         }
 
         /* FAQ styles */
@@ -269,39 +403,13 @@
             display: none;
         }
 
-        /* CTA button */
-        .cta-btn {
-            display: block;
-            padding: 14px;
-            background-color: #228B22;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            text-align: center;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-        }
-
-        .cta-btn:hover {
-            background-color: #1a751a;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-
-        .cta-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-        }
-
         /* Fade-in animation */
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .estimator, .faq, .result, .cta-btn {
+        .estimator, .faq, .result, .app-promo, .benefits-slider {
             animation: fadeIn 0.5s ease-in;
         }
 
@@ -311,31 +419,41 @@
                 right: 0;
                 width: 90vw;
             }
-            .estimator {
-                flex-direction: column;
-                align-items: stretch;
-                padding: 10px;
-            }
-            .estimator label {
-                margin-bottom: 8px;
-            }
-            .estimator input {
-                width: 100%;
-                flex: 0 0 100%;
-            }
+            
+            
             .result {
                 padding: 8px;
                 font-size: 14px;
+            }
+            .app-promo .button-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .benefits-slider {
+                height: 100px;
+            }
+            .benefits-slide p {
+                font-size: 0.9rem;
+                padding: 0 35px; /* Adjusted for arrows on mobile */
+            }
+            .slider-arrow {
+                width: 25px;
+                height: 25px;
+                font-size: 1rem;
+            }
+            .slider-arrow.left {
+                left: 5px;
+            }
+            .slider-arrow.right {
+                right: 5px;
             }
         }
     </style>
 </head>
 <body>
-
-
     <header>
         <h1>Zašto je naš Loyalty Widget prava prilika za Pevex?</h1>
-        <p>Predstavljamo vam inovativno rešenje koje povećava angažovanost posetilaca sajta, 
+        <p>Predstavljamo vam interaktivno rešenje koje povećava angažovanost posetilaca sajta, 
         podstiče učlanjivanje u Loyalty program i gradi dugoročne odnose sa kupcima – sve kroz 
         jednostavno i vizuelno privlačno iskustvo.</p>
     </header>
@@ -382,30 +500,23 @@
     </section>
 
     <footer style="background-color:#006298; color:white; padding:30px 20px; text-align:center; margin-top:40px;">
-    <h2 style="margin-bottom:10px;">💬 Želite ovakav widget na svom sajtu?</h2>
-    <p style="max-width:600px; margin:0 auto 20px;">
-        Kontaktirajte me preko LinkedIna ili email-a i dogovorićemo prilagođenu verziju ovog widgeta za vaš brend.
-    </p>
-    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-        <a href="https://www.linkedin.com/in/petar-skrbic/" 
-           target="_blank" 
-           style="display:inline-block; background:#ffffff; color:#009846; padding:12px 24px; border-radius:6px; font-weight:bold; text-decoration:none; transition:0.3s;">
-           📎 Povežite se sa mnom na LinkedInu
-        </a>
-        <a href="mailto:notoolsnocraft@gmail.com"
-           style="display:inline-block; background:#ffffff; color:#006298; padding:12px 24px; border-radius:6px; font-weight:bold; text-decoration:none; transition:0.3s;">
-           ✉️ Pošaljite mi email
-        </a>
-    </div>
-    <p style="margin-top:30px; font-size:14px; opacity:0.9;">&copy; 2025 Petar Škrbić. Sva prava zadržana.</p>
-</footer>
-
-
-
-
-
-
-
+        <h2 style="margin-bottom:10px;">💬 Želite ovakav widget na svom sajtu?</h2>
+        <p style="max-width:600px; margin:0 auto 20px;">
+            Kontaktirajte me preko LinkedIna ili email-a i dogovorićemo prilagođenu verziju ovog widgeta za vaš brend.
+        </p>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+            <a href="https://www.linkedin.com/in/petar-skrbic/" 
+               target="_blank" 
+               style="display:inline-block; background:#ffffff; color:#009846; padding:12px 24px; border-radius:6px; font-weight:bold; text-decoration:none; transition:0.3s;">
+               📎 Povežite se sa mnom na LinkedInu
+            </a>
+            <a href="mailto:notoolsnocraft@gmail.com"
+               style="display:inline-block; background:#ffffff; color:#006298; padding:12px 24px; border-radius:6px; font-weight:bold; text-decoration:none; transition:0.3s;">
+               ✉️ Pošaljite mi email
+            </a>
+        </div>
+        <p style="margin-top:30px; font-size:14px; opacity:0.9;">&copy; 2025 Petar Škrbić. Sva prava zadržana.</p>
+    </footer>
 
     <!-- Sticky button with rotating logo -->
     <button id="loyaltyStickyBtn" aria-label="Otvori PEVEX KLUB panel">
@@ -424,23 +535,68 @@
         <div class="estimator">
             <label for="monthlySpending">Koliko mesečno trošite <br>u Pevexu? (EUR)</label>
             <input type="number" id="monthlySpending" min="0" value="200" aria-describedby="spendingHelp" onchange="estimateSavings()">
-            
+        </div>
+        <div class="result" id="savingsResult">Procjena uštede: 20 EUR</div>
+        
+
+        <!-- App Promotion Section -->
+        <div class="app-promo">
+            <h3>Pridruži se PEVEX KLUB-u!</h3>
+            <p>Preuzmi PEVEX app na Android za digitalnu KLUB karticu i ekskluzivne ponude ili posjeti našu web stranicu za više informacija i učlanjenje.</p>
+            <div class="button-container">
+                <a href="https://play.google.com/store/apps/details?id=hr.pevex.klub" target="_blank" class="cta-btn">Preuzmi za Android</a>
+                <a href="https://www.pevex.hr/pevex-klub" target="_blank" class="cta-btn web-btn">Saznaj više na webu</a>
+            </div>
         </div>
 
-        <div class="result" id="savingsResult">Procjena uštede: 20 EUR</div>
-
-        <!-- Benefits List -->
-        <p>Pridruži se PEVEX KLUB-u i uživaj u ekskluzivnim pogodnostima!</p>
-        <ul>
-            <li><strong>Trenutni popusti</strong> na odabrane artikle (označeni kao 'zelena cijena')</li>
-            <li><strong>Utorak dan za mene</strong> – posebni popusti svaki utorak</li>
-            <li><strong>Super ponuda</strong> – najbolje cijene prehrambenih proizvoda</li>
-            <li><strong>Besplatan najam prikolice</strong> za kupnje preko 250 EUR (u odabranim centrima)</li>
-            <li><strong>Besplatna dostava</strong> uz određene uvjete</li>
-            <li><strong>36 rata bez kamate</strong> za kartično plaćanje</li>
-            <li><strong>Produljeno jamstvo do 5 godina</strong> za registrirane uređaje</li>
-            <li><strong>Popusti u SAMOFINO kafićima</strong></li>
-        </ul>
+        <!-- Benefits Slider -->
+        <p style="text-align: center;"><b>Imamo sjajne pogodnosti za tebe!</b></p>
+        <div class="benefits-slider">
+            <button class="slider-arrow left" aria-label="Prethodna pogodnost">&#10094;</button>
+            <div class="benefits-slide active">
+                <p>Trenutni popusti na odabrane artikle (označeni kao 'zelena cijena')</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Click&Collect – besplatno preuzmi narudžbu u 31 prodajnom centru</p>
+            </div>
+            <div class="benefits-slide">
+                <p>36 rata bez kamata – ista cijena za sve vrste plaćanja</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Brza dostava – naručeni artikli stižu direktno na tvoju adresu</p>
+            </div>
+            <div class="benefits-slide">
+                <p>100% sigurno – više od 30 godina iskustva i povjerenja</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Utorak dan za mene – posebni popusti svaki utorak</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Super ponuda – najbolje cijene prehrambenih proizvoda</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Besplatan najam prikolice za kupnje preko 250 EUR (u odabranim centrima)</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Produljeno jamstvo do 5 godina za registrirane uređaje</p>
+            </div>
+            <div class="benefits-slide">
+                <p>Popusti u SAMOFINO kafićima</p>
+            </div>
+            <button class="slider-arrow right" aria-label="Sljedeća pogodnost">&#10095;</button>
+        </div>
+        <div class="slider-dots">
+            <span class="slider-dot active"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+            <span class="slider-dot"></span>
+        </div>
 
         <!-- FAQ Section -->
         <div class="faq">
@@ -448,9 +604,10 @@
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false">Kako se učlaniti u PEVEX KLUB?</button>
                 <div class="faq-answer">
-                    <p>Možete se učlaniti putem info pulta u prodajnim centrima ili na www. uz popunu pristupnice.</p>
+                    <p>Možete se učlaniti putem info pulta u prodajnim centrima, na www.pevex.hr/pevex-klub ili preko PEVEX mobilne aplikacije za Android.</p>
                 </div>
             </div>
+            
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false">Skupljaju li se bodovi?</button>
                 <div class="faq-answer">
@@ -463,15 +620,13 @@
                     <p>Svaki korisnik može imati samo jednu PEVEX KLUB karticu.</p>
                 </div>
             </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Trebaš pomoć oko svoje narudžbe?</button>
+                <div class="faq-answer">
+                    <p>Obrati nam se telefonom ili e-mailom, javit ćemo se u najkraćem mogućem roku.</p>
+                </div>
+            </div>
         </div>
-
-        <!-- CTA Button -->
-        <div style="text-align: center;">
-            <a href="https://www.pevex.hr/pevex-klub" target="_blank" class="cta-btn">
-                Pridruži se PEVEX KLUB-u – besplatno!
-            </a>
-        </div>
-        
     </div>
 
     <script>
@@ -532,7 +687,76 @@
 
         // Initial calculation
         estimateSavings();
+
+        // Benefits slider
+        const slides = document.querySelectorAll('.benefits-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const leftArrow = document.querySelector('.slider-arrow.left');
+        const rightArrow = document.querySelector('.slider-arrow.right');
+        let currentSlide = 0;
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.toggle('active', i === index);
+            });
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+            currentSlide = index;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        function startSlider() {
+            slideInterval = setInterval(nextSlide, 2000);
+        }
+
+        function stopSlider() {
+            clearInterval(slideInterval);
+        }
+
+        // Manual navigation via dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopSlider();
+                showSlide(index);
+                startSlider();
+            });
+        });
+
+        // Manual navigation via arrows
+        leftArrow.addEventListener('click', () => {
+            stopSlider();
+            prevSlide();
+            startSlider();
+        });
+
+        rightArrow.addEventListener('click', () => {
+            stopSlider();
+            nextSlide();
+            startSlider();
+        });
+
+        // Start slider when panel opens
+        panel.addEventListener('transitionend', (e) => {
+            if (e.propertyName === 'right' && panel.classList.contains('open')) {
+                startSlider();
+            } else {
+                stopSlider();
+            }
+        });
+
+        // Initial slide
+        showSlide(0);
     </script>
 </body>
 </html>
-
